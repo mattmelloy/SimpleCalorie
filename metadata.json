@@ -1,0 +1,7 @@
+{
+  "name": "QuickCalorie - Simple Calorie Tracker",
+  "description": "A simple, low-friction calorie/kilojoule intake tracker app that allows users to log meals quickly with photo capture or text description, adjusting portion sizes via an intuitive slider. AI-powered for convenience and privacy-first.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
