@@ -17,7 +17,7 @@ QuickCalorie is a modern, privacy-focused calorie tracking application powered b
 
 -   **Frontend**: React (TypeScript), Vite, Tailwind CSS
 -   **Backend**: Node.js (Express for local dev), Vercel Serverless Functions (Production)
--   **AI**: Google Gemini API (`gemini-2.0-flash-exp`)
+-   **AI**: Google Gemini API (`gemini-3-flash-preview`)
 
 ## 💻 Getting Started Locally
 
