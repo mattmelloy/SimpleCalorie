@@ -2,6 +2,7 @@
 import React, { useMemo } from 'react';
 import { LogEntry, UserSettings, MealCategory, Unit } from '../types';
 import { KCAL_TO_KJ } from '../constants';
+import { getTodayDateString } from '../utils';
 
 interface DashboardProps {
   settings: UserSettings;
@@ -22,7 +23,7 @@ const MealCategoryIcons: { [key in MealCategory]: React.FC<{className: string}> 
 const Dashboard: React.FC<DashboardProps> = ({ settings, logs, onAddLog, onOpenSettings, onDeleteLog }) => {
   const { dailyGoal, unit } = settings;
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = getTodayDateString();
   const todayLogs = useMemo(() => logs.filter(log => log.date === today), [logs, today]);
 
   const totalCalories = useMemo(() => 

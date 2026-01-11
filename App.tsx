@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import useLocalStorage from './hooks/useLocalStorage';
 import { UserSettings, LogEntry, MealCategory } from './types';
+import { getTodayDateString } from './utils';
 import Onboarding from './components/Onboarding';
 import Dashboard from './components/Dashboard';
 import LogEntryForm from './components/LogEntryForm';
@@ -27,7 +28,7 @@ const App: React.FC = () => {
     const newLog: LogEntry = {
       ...logData,
       id: new Date().getTime().toString(),
-      date: new Date().toISOString().split('T')[0],
+      date: getTodayDateString(),
     };
     setLogs(prevLogs => [...prevLogs, newLog]);
   };

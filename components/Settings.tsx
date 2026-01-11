@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { UserSettings, Unit } from '../types';
+import { UserSettings, Unit, GoalCalculationResult } from '../types';
 import Modal from './common/Modal';
+import GoalCalculator from './GoalCalculator';
 
 interface SettingsProps {
   isOpen: boolean;
@@ -13,6 +14,7 @@ interface SettingsProps {
 
 const Settings: React.FC<SettingsProps> = ({ isOpen, onClose, currentSettings, onSave, onClearData }) => {
   const [settings, setSettings] = useState(currentSettings);
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
 
   useEffect(() => {
     setSettings(currentSettings);
@@ -21,6 +23,11 @@ const Settings: React.FC<SettingsProps> = ({ isOpen, onClose, currentSettings, o
   const handleSave = () => {
     onSave(settings);
     onClose();
+  };
+
+  const handleGoalCalculated = (result: GoalCalculationResult) => {
+    setSettings({ ...settings, dailyGoal: result.dailyCalories });
+    // Optionally allow user to see reasoning? For now just set the value.
   };
   
   const handleClearData = () => {
@@ -44,6 +51,15 @@ const Settings: React.FC<SettingsProps> = ({ isOpen, onClose, currentSettings, o
             onChange={(e) => setSettings({ ...settings, dailyGoal: parseInt(e.target.value, 10) || 0 })}
             className="mt-1 w-full p-3 bg-slate-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-white"
           />
+          <button 
+            onClick={() => setIsCalculatorOpen(true)}
+            className="mt-2 text-sm text-indigo-600 dark:text-indigo-400 font-medium hover:underline flex items-center gap-1"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            Help me calculate this
+          </button>
         </div>
 
         <div>
@@ -99,6 +115,11 @@ const Settings: React.FC<SettingsProps> = ({ isOpen, onClose, currentSettings, o
             </button>
         </div>
       </div>
+      <GoalCalculator 
+        isOpen={isCalculatorOpen} 
+        onClose={() => setIsCalculatorOpen(false)} 
+        onCalculate={handleGoalCalculated} 
+      />
     </Modal>
   );
 };
